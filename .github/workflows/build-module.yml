@@ -19,11 +19,11 @@ jobs:
             vermagic: "a34632275434357df42e7e3bc07410b0-r1"
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: immortalwrt/immortalwrt
-          ref: v${{ matrix.build_env.tag }}
-          fetch-depth: 0
+    #  - uses: actions/checkout@v4
+     #   with:
+      #    repository: immortalwrt/immortalwrt
+      #    ref: v${{ matrix.build_env.tag }}
+      #    fetch-depth: 0
 
       - name: Cache Tools and Kernel
         id: cache-tools-kernel
