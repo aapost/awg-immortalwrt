@@ -3,7 +3,7 @@ name: Create Release on Tag
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "*.*-SNAPSHOT"
 
 jobs:
   build:
@@ -12,26 +12,16 @@ jobs:
     strategy:
       matrix:
         build_env:
-          - tag: "22.03.4"
-            pkgarch: mips_24kc
-            target: ath79
-            subtarget: nand
-            vermagic: "5c9be91b90bda5403fe3a7c4e8ddb26f"
-          - tag: "23.05.0"
-            pkgarch: mipsel_24kc
-            target: ramips
-            subtarget: mt7621
-            vermagic: "9c242f353867f49a96054ff8c9f2c460"
-          - tag: "23.05.2"
-            pkgarch: mipsel_24kc
-            target: ramips
-            subtarget: mt7621
-            vermagic: "9c242f353867f49a96054ff8c9f2c460"
+          - tag: "24.10-SNAPSHOT"
+            pkgarch: aarch64_cortex-a53
+            target: mediatek
+            subtarget: filogic
+            vermagic: "a34632275434357df42e7e3bc07410b0-r1"
 
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: openwrt/openwrt
+          repository: immortalwrt/immortalwrt
           ref: v${{ matrix.build_env.tag }}
           fetch-depth: 0
 
