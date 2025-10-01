@@ -6,7 +6,7 @@ env:
 on:
   push:
     tags:
-      - "ImmortalWRT"
+      - "v*.*"
   # schedule:
   #   - cron: '0 */4 * * *'
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         build_env:
-          - tag: "-SNAPSHOT"
+          - tag: "24.10-SNAPSHOT"
             pkgarch: "aarch64_cortex-a53"
             target: "mediatek"
             subtarget: "filogic"
@@ -53,7 +53,7 @@ jobs:
       - name: Get snapshot commit SHA and device ARCH
         if: env.FILE_EXISTS == 'false'
         run: |
-          PROFILE_URL="https://downloads.immortalwrt.org/releases/-SNAPSHOT/targets/${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}/profiles.json"
+          PROFILE_URL="https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}/profiles.json"
           SNAPSHOT_COMMIT_SHA=$(wget -q $PROFILE_URL -O- | tr ',' '\n' | grep "version_code"| awk -F: '{print $2}' | tr -d '"' | awk -F- '{print $2}')
           echo "Snapshot commit sha: $SNAPSHOT_COMMIT_SHA"
           echo "SNAPSHOT_COMMIT_SHA=$SNAPSHOT_COMMIT_SHA" >> $GITHUB_ENV
@@ -78,7 +78,7 @@ jobs:
           echo "pkgarch: ${{ matrix.build_env.pkgarch}}, target:${{ matrix.build_env.target}}, subtarget: ${{ matrix.build_env.subtarget}}"
 
           # Setup & install feeds
-          wget https://downloads.immortalwrt.org/releases/-SNAPSHOT/targets/${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}/feeds.buildinfo -O feeds.conf
+          wget https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/${{ matrix.build_env.target}}/${{ matrix.build_env.subtarget}}/feeds.buildinfo -O feeds.conf
           echo "src-git awgopenwrt https://github.com/Nialpo/awg-openwrt.git" >> ./feeds.conf
           ./scripts/feeds update && ./scripts/feeds install -a
 
